@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Mark builds fast, secure Shopify & WooCommerce stores for e-commerce brands. Speed-optimized, mobile-friendly, and conversion-focused.">
+  <title>Mark | E-Commerce Web Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ===== Base & Reset ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --light-gray: #e2e8f0;
+      --white: #ffffff;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      scroll-behavior: smooth;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== Header & Navigation ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+    .nav-links a {
+      font-weight: 600;
+      color: var(--dark);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    /* ===== Page Sections ===== */
+    section {
+      padding: 100px 0;
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    .hero {
+      padding-top: 180px;
+      padding-bottom: 100px;
+      text-align: center;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    .page-header p {
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* ===== Services ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .service-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(37, 99, 235, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--primary);
+      font-size: 24px;
+    }
+    .service-card h3 {
+      margin: 15px 0;
+    }
+
+    /* ===== Portfolio ===== */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .portfolio-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .portfolio-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 20px 15px 10px;
+      color: white;
+    }
+    .portfolio-overlay h3 {
+      margin-bottom: 5px;
+    }
+
+    /* ===== Contact Form ===== */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    .submit-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 60px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        gap: 15px;
+        font-size: 0.95rem;
+      }
+      section {
+        padding: 80px 0;
+      }
+      .hero {
+        padding-top: 150px;
+      }
+    }
+    @media (max-width: 600px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      header {
+        padding: 15px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <a href="#home" class="logo">Mark.dev</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Home -->
+  <section id="home" class="active">
+    <div class="hero">
+      <div class="container">
+        <h1>High-Performance E-Commerce Websites</h1>
+        <p>Shopify & WooCommerce expert | 1s load times | 7+ years in e-commerce</p>
+        <a href="#contact" class="btn">Start Your Project</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <h2 class="page-header" style="margin: 60px auto 40px;">
+          <span style="font-size: 2rem;">Featured Services</span>
+        </h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+            <h3>Shopify Setup</h3>
+            <p>End-to-end store build with SEO, payments, and theme customization.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <h3>Speed Optimization</h3>
+            <p>Guaranteed sub-1s load times for higher conversions.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-lock"></i></div>
+            <h3>Security</h3>
+            <p>SSL, PCI compliance, and malware protection included.</p>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="#services" class="btn">View All Services</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" style="background: #f1f5f9;">
+      <div class="container">
+        <h2 class="page-header" style="margin: 60px auto 40px;">
+          <span style="font-size: 2rem;">Recent Work</span>
+        </h2>
+        <div class="portfolio-grid">
+          <div class="portfolio-item">
+            <img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?auto=format&fit=crop&w=600&h=220" alt="Fashion Store">
+            <div class="portfolio-overlay">
+              <h3>Luxe Apparel</h3>
+              <p>Shopify • Fashion</p>
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <img src="https://images.unsplash.com/photo-1523961131921-7e105aa886ae?auto=format&fit=crop&w=600&h=220" alt="Beauty Store">
+            <div class="portfolio-overlay">
+              <h3>Glow Cosmetics</h3>
+              <p>WooCommerce • Beauty</p>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="#portfolio" class="btn btn-outline">See Full Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="page-header">
+        <h1>About Me</h1>
+        <p>10+ years in web development • 7+ years focused on e-commerce</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+        <div>
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&h=500&q=80" alt="Mark" style="border-radius: 12px; width: 100%;">
+        </div>
+        <div>
+          <h2 style="font-size: 1.8rem; margin-bottom: 20px;">Speed, Security & Sales</h2>
+          <p style="margin-bottom: 15px;">I build e-commerce websites that load in under 1 second, rank on Google, and drive real revenue.</p>
+          <p style="margin-bottom: 15px;">My clients include startups and established brands in fashion, electronics, health & beauty, food & beverage, and more.</p>
+          <p>I believe in clean code, clear communication, and long-term partnerships.</p>
+          <a href="#contact" class="btn" style="margin-top: 20px;">Let’s Work Together</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="page-header">
+        <h1>My Services</h1>
+        <p>End-to-end e-commerce solutions for modern brands</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+          <h3>Shopify & WooCommerce</h3>
+          <p>Full store setup, product imports, theme customization, and payment gateway integration.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <h3>Speed Optimization</h3>
+          <p>Image compression, lazy loading, CDN setup, and code minification to achieve sub-1s load times.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-lock"></i></div>
+          <h3>Security & Compliance</h3>
+          <p>SSL installation, PCI compliance, GDPR/CCPA readiness, and daily malware scans.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+          <h3>Responsive Design</h3>
+          <p>Mobile-first development ensuring flawless experience on all devices.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-search"></i></div>
+          <h3>SEO Setup</h3>
+          <p>On-page SEO, schema markup, XML sitemaps, and Google Search Console integration.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-headset"></i></div>
+          <h3>Post-Launch Support</h3>
+          <p>Ongoing maintenance, updates, and performance monitoring.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="page-header">
+        <h1>My Portfolio</h1>
+        <p>E-commerce stores built for speed, SEO, and conversion</p>
+      </div>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?auto=format&fit=crop&w=600&h=220" alt="Fashion E-commerce">
+          <div class="portfolio-overlay">
+            <h3>Luxe Apparel</h3>
+            <p>Shopify • Fashion</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1523961131921-7e105aa886ae?auto=format&fit=crop&w=600&h=220" alt="Beauty Brand">
+          <div class="portfolio-overlay">
+            <h3>Glow Cosmetics</h3>
+            <p>WooCommerce • Beauty</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=600&h=220" alt="Electronics Store">
+          <div class="portfolio-overlay">
+            <h3>TechGadgets</h3>
+            <p>Shopify • Electronics</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae70d?auto=format&fit=crop&w=600&h=220" alt="Food Brand">
+          <div class="portfolio-overlay">
+            <h3>Organic Eats</h3>
+            <p>WooCommerce • Food</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="page-header">
+        <h1>Get in Touch</h1>
+        <p>Free consultation for your e-commerce project</p>
+      </div>
+      <div class="contact-container">
+        <div>
+          <h2 style="margin-bottom: 20px;">Let’s Talk</h2>
+          <p style="margin-bottom: 25px;">Tell me about your brand, platform (Shopify/WooCommerce), timeline, and goals.</p>
+          <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+            <div style="width: 40px; height: 40px; background: rgba(37,99,235,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fas fa-envelope" style="color: var(--primary);"></i>
+            </div>
+            <span>hello@mark.dev</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="width: 40px; height: 40px; background: rgba(37,99,235,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fas fa-clock" style="color: var(--primary);"></i>
+            </div>
+            <span>Response within 24 hours</span>
+          </div>
+        </div>
+        <div>
+          <form id="contactForm">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" placeholder="Project details (store type, platform, timeline, etc.)" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Mark | E-Commerce Developer</p>
+    </div>
+  </footer>
+
+  <script>
+    // Show active section based on URL hash
+    function showSection(hash) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      const target = document.querySelector(hash) || document.getElementById('home');
+      target.classList.add('active');
+      
+      // Update active nav link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === hash) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // Handle navigation clicks
+    document.querySelectorAll('.nav-links a, .btn[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const hash = this.getAttribute('href');
+        history.pushState(null, '', hash);
+        showSection(hash);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+      showSection(window.location.hash || '#home');
+    });
+
+    // Initial load
+    showSection(window.location.hash || '#home');
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('✅ Thank you! Your message has been sent. I’ll reply within 24 hours.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
